@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: template
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        register: true
+        service-name: ${spring.application.name}
+        health-check-interval: 10s
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, env, metrics
